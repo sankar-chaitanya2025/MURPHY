@@ -250,6 +250,29 @@ def run_murphy(problem: dict, test_code: str,
     }
 
 
+def murphy_solve(problem: str, test_code: str,
+                 entry_point: str = None,
+                 strategy: str = "mars",
+                 num_generations: int = None,
+                 num_turns: int = None,
+                 verbose: bool = False) -> dict:
+    """
+    Wrapper for Ray/evaluator: accepts prompt, test_code, entry_point as separate args.
+    Calls run_murphy under the hood.
+    """
+    problem_dict = {"prompt": problem}
+    if entry_point:
+        problem_dict["entry_point"] = entry_point
+    return run_murphy(
+        problem=problem_dict,
+        test_code=test_code,
+        strategy=strategy,
+        num_generations=num_generations,
+        num_turns=num_turns,
+        verbose=verbose
+    )
+
+
 def run_single_turn(problem: dict, test_code: str,
                      num_generations: int = None,
                      verbose: bool = False) -> dict:
